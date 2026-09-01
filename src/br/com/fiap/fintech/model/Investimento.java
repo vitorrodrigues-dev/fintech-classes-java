@@ -1,34 +1,37 @@
 package br.com.fiap.fintech.model;
 
-public class Investimento {
+public abstract class Investimento {
 
     private int idInvestimento;
-    private String tipo;
+    private String nome;
     private double valorAplicado;
-    private double rendimento;
     private String dataInvestimento;
 
-    public void aplicarInvestimento() {
-        System.out.println("Aplicando investimento de: " + valorAplicado);
+    public abstract double calcularRendimento();
+
+    public void aplicarInvestimento(double valorAporte) {
+        if (valorAporte <= 0) {
+            throw new IllegalArgumentException("O valor aportado deve ser positivo");
+        }
+        this.valorAplicado += valorAporte;
     }
 
     public void resgatarInvestimento(double valorResgate) {
-        System.out.println("Resgatando R$ " + valorResgate + " do investimento em " + tipo);
+        if (valorResgate > this.valorAplicado) {
+            throw new IllegalArgumentException("O valor a ser resgatado deve ser menor ou igual ao valor aplicado");
+        }
+
+        if (valorResgate <= 0) {
+            throw new IllegalArgumentException("O valor a ser resgatado deve ser positivo");
+        }
+
+        this.valorAplicado -= valorResgate;
     }
 
-    public void calcularRendimento () {
-        System.out.println("Calculando rendimento: " + rendimento);
-    }
-
-    public Investimento() {
-
-    }
-
-    public Investimento(int idInvestimento, String tipo, double valorAplicado, double rendimento, String dataInvestimento) {
+    public Investimento(int idInvestimento, String nome, double valorAplicado, String dataInvestimento) {
         this.idInvestimento = idInvestimento;
-        this.tipo = tipo;
+        this.nome = nome;
         this.valorAplicado = valorAplicado;
-        this.rendimento = rendimento;
         this.dataInvestimento = dataInvestimento;
     }
 
@@ -36,39 +39,20 @@ public class Investimento {
         return idInvestimento;
     }
 
-    public void setIdInvestimento(int idInvestimento) {
-        this.idInvestimento = idInvestimento;
+    public String getNome() {
+        return nome;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public double getValorAplicado() {
         return valorAplicado;
     }
 
-    public void setValorAplicado(double valorAplicado) {
-        this.valorAplicado = valorAplicado;
-    }
-
-    public double getRendimento() {
-        return rendimento;
-    }
-
-    public void setRendimento(double rendimento) {
-        this.rendimento = rendimento;
-    }
 
     public String getDataInvestimento() {
         return dataInvestimento;
-    }
-
-    public void setDataInvestimento(String dataInvestimento) {
-        this.dataInvestimento = dataInvestimento;
     }
 }

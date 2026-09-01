@@ -7,47 +7,37 @@ public class MetaFinanceira {
     private double valorAlvo;
     private int prazoMeses;
     private double progresso;
-    private String status;
 
-    public void registrarMeta() {
-        System.out.println("Registrando meta: " + nomeMeta);
-    }
 
     public void atualizarProgresso(double valorDepositado) {
-        System.out.println("Atualizando progresso da meta " + nomeMeta + " com depósito de R$ " + valorDepositado);
+        if (valorDepositado <= 0) {
+            throw new IllegalArgumentException("O valor depositado deve ser positivo.");
+        }
+        this.progresso += valorDepositado;
+
     }
 
-    public void  verificarMetaAtingida() {
-        System.out.println("Verificando meta atingida: " + status);
+    public boolean  verificarMetaAtingida() {
+        return progresso >= valorAlvo;
     }
 
-    public MetaFinanceira(int idMeta, String nomeMeta, double valorAlvo, int prazoMeses, double progresso, String status) {
+    public MetaFinanceira(int idMeta, String nomeMeta, double valorAlvo, int prazoMeses) {
         this.idMeta = idMeta;
         this.nomeMeta = nomeMeta;
         this.valorAlvo = valorAlvo;
         this.prazoMeses = prazoMeses;
-        this.progresso = progresso;
-        this.status = status;
-    }
-
-    public MetaFinanceira() {
-
     }
 
     public int getIdMeta() {
         return idMeta;
     }
 
-    public void setIdMeta(int idMeta) {
-        this.idMeta = idMeta;
+    public void setNomeMeta(String nomeMeta) {
+        this.nomeMeta = nomeMeta;
     }
 
     public String getNomeMeta() {
         return nomeMeta;
-    }
-
-    public void setNomeMeta(String nomeMeta) {
-        this.nomeMeta = nomeMeta;
     }
 
     public double getValorAlvo() {
@@ -70,15 +60,4 @@ public class MetaFinanceira {
         return progresso;
     }
 
-    public void setProgresso(double progresso) {
-        this.progresso = progresso;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }

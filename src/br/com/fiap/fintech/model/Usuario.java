@@ -10,20 +10,20 @@ public class Usuario {
     private String dataCadastro;
 
 
-    public void cadastrarUsuario() {
-        System.out.println("Cadastrando novo usuário: " + nome + " | e-mail: " + email);
-    }
-
     public void alterarSenha(String novaSenha) {
-        System.out.println("Alterando a senha do usuário " + nome);
+        if (novaSenha == null || novaSenha.length() < 4) {
+            throw new IllegalArgumentException("A nova senha deve ter pelo menos 4 caracteres.");
+        }
+
+        if(novaSenha.equals(this.senha)) {
+            throw new IllegalArgumentException("A nova senha não pode ser igual à senha atual.");
+        }
+
+        this.senha = novaSenha;
     }
 
-    public void atualizarPerfilFinanceiro() {
-        System.out.println("Alterando Perfil Financeiro do usuário: " + nome);
-    }
-
-    public Usuario() {
-
+    public void atualizarPerfilFinanceiro(String novoPerfil) {
+        this.perfilFinanceiro = novoPerfil;
     }
 
     public Usuario(int idUsuario, String nome, String email, String senha, String perfilFinanceiro, String dataCadastro) {
@@ -37,10 +37,6 @@ public class Usuario {
 
     public int getIdUsuario() {
         return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
     }
 
     public String getNome() {
@@ -59,27 +55,12 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public String getPerfilFinanceiro() {
         return perfilFinanceiro;
-    }
-
-    public void setPerfilFinanceiro(String perfilFinanceiro) {
-        this.perfilFinanceiro = perfilFinanceiro;
     }
 
     public String getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(String dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
 }
